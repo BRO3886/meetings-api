@@ -4,11 +4,10 @@
   <h5 align="center">Siddhartha Varma, 18BCE0865<h5>
 </p>
 
-<!-- ## Functionalities
-- [ ]  < insert functionality >
-- [ ]  < insert functionality >
-- [ ]  < insert functionality >
-- [ ]  < insert functionality > -->
+## Features
+- [x]  Built to scale
+- [x]  Follows clean architecture
+- [x]  Clear separation of concerns
 
 <br>
 
