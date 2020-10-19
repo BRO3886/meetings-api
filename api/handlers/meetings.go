@@ -35,18 +35,29 @@ func create(svc meeting.Service) http.HandlerFunc {
 }
 
 func find(svc meeting.Service) http.HandlerFunc {
-	return func (w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			views.Wrap(views.ErrMethodNotAllowed, w)
 			return
 		}
-		
-		return 
+		idStr := r.URL.Path[len("/meeting/"):]
+		m, err := svc.FindMeeting(idStr)
+		if err != nil {
+			views.Wrap(err, w)
+			return
+		}
+		w.WriteHeader(http.StatusFound)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"message": "meeting found",
+			"meeting": m,
+		})
+		return
 	}
 }
 
 //MountMeetingRoutes to handle routes of meeting
 func MountMeetingRoutes(r *http.ServeMux, svc meeting.Service) {
 	//schedule meetings
-	r.Handle("/meetings", http.Handler(create(svc)))
+	r.Handle("/meetings", create(svc))
+	r.Handle("/meeting/{id}", find(svc))
 }
