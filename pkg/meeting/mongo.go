@@ -11,13 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-//NewRepo new repo
-func NewRepo(coll *mongo.Collection) Repository {
-	return &repo{
-		Coll: coll,
-	}
-}
-
 type repo struct {
 	Coll *mongo.Collection
 }
