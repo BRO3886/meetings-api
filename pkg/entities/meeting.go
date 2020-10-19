@@ -27,6 +27,7 @@ const (
 
 //JoinRequest join-request for meetings
 type JoinRequest struct {
+	ID        primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`
 	MeetingID primitive.ObjectID `bson:"meeting_id,omitempty" json:"meeting_id"`
 	EmailID   string             `bson:"p_id,omitempty" json:"p_id"`
 	Response  UserResponse       `bson:"response" json:"response"`
