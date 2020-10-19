@@ -34,6 +34,17 @@ func create(svc meeting.Service) http.HandlerFunc {
 	}
 }
 
+func find(svc meeting.Service) http.HandlerFunc {
+	return func (w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			views.Wrap(views.ErrMethodNotAllowed, w)
+			return
+		}
+		
+		return 
+	}
+}
+
 //MountMeetingRoutes to handle routes of meeting
 func MountMeetingRoutes(r *http.ServeMux, svc meeting.Service) {
 	//schedule meetings
