@@ -2,6 +2,7 @@ package meeting
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/BRO3886/meetings-api/pkg"
@@ -27,12 +28,15 @@ func (r *repo) CreateMeeting(meeting *entities.Meeting) (*entities.Meeting, erro
 
 func (r *repo) FindByID(id string) (*entities.Meeting, error) {
 	meeting := &entities.Meeting{}
+	fmt.Println(id)
 	mID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
+		fmt.Println(err)
 		return nil, pkg.ErrDatabase
 	}
 	err = r.Coll.FindOne(context.Background(), bson.M{"_id": mID}).Decode(meeting)
 	if err != nil {
+		print("finding error")
 		return nil, pkg.ErrDatabase
 	}
 	return meeting, nil

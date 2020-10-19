@@ -44,7 +44,8 @@ func find(svc meeting.Service) http.HandlerFunc {
 			views.Wrap(views.ErrMethodNotAllowed, w)
 			return
 		}
-		idStr := r.URL.Path[len("/meetings/"):]
+		params := mux.Vars(r)
+		idStr := params["id"]
 		m, err := svc.FindMeeting(idStr)
 		if err != nil {
 			views.Wrap(err, w)
