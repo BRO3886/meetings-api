@@ -1,6 +1,6 @@
 <p align="center">
-	<h2 align="center">Meetings API</h2>
-	<h4 align="center">Task for Appointy<h4>
+	<h2 align="center">Meetings API (Appointy Task)</h2>
+	<h4 align="center">A small, fast meetings api written in Go. Built to Scale.<h4>
   <h5 align="center">Siddhartha Varma, 18BCE0865<h5>
 </p>
 
