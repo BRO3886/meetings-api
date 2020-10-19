@@ -21,6 +21,7 @@ var (
 	ErrMethodNotAllowed = errors.New("Error: Method is not allowed")
 	ErrInvalidToken     = errors.New("Error: Invalid Authorization token")
 	ErrUserExists       = errors.New("User already exists")
+	ErrBadRequst        = errors.New("Error parsing request")
 )
 
 //ErrHTTPStatusMap maps pkg error to view error with http status code
@@ -35,6 +36,7 @@ var ErrHTTPStatusMap = map[string]int{
 	ErrMethodNotAllowed.Error(): http.StatusMethodNotAllowed,
 	ErrInvalidToken.Error():     http.StatusBadRequest,
 	ErrUserExists.Error():       http.StatusConflict,
+	ErrBadRequst.Error():        http.StatusBadRequest,
 }
 
 //Wrap func to send error
