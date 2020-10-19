@@ -24,6 +24,6 @@ func DBConnect() (*mongo.Database, error) {
 	if err != nil {
 		return nil, err
 	}
-	db := client.Database("notesapi")
+	db := client.Database("appointy")
 	return db, nil
 }

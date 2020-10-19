@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/BRO3886/meetings-api/api/handlers"
+	"github.com/gorilla/mux"
 
 	"github.com/BRO3886/meetings-api/pkg/meeting"
 	"github.com/BRO3886/meetings-api/utils"
@@ -36,7 +37,7 @@ func main() {
 	fmt.Println("Connected to DB")
 
 	//instantiate servemux
-	r := http.NewServeMux()
+	r := mux.NewRouter().StrictSlash(true)
 
 	//get collections
 	// pColl := db.Collection("participants")
@@ -51,6 +52,7 @@ func main() {
 	handlers.MountMeetingRoutes(r, mSvc)
 
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("content-type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(map[string]interface{}{
 			"message": "all ok 🔥",

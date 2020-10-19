@@ -8,10 +8,12 @@ import (
 	"github.com/BRO3886/meetings-api/api/views"
 	"github.com/BRO3886/meetings-api/pkg/entities"
 	"github.com/BRO3886/meetings-api/pkg/meeting"
+	"github.com/gorilla/mux"
 )
 
 func create(svc meeting.Service) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("content-type", "application/json")
 		if r.Method != http.MethodPost {
 			views.Wrap(views.ErrMethodNotAllowed, w)
 			return
@@ -37,11 +39,12 @@ func create(svc meeting.Service) http.HandlerFunc {
 
 func find(svc meeting.Service) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("content-type", "application/json")
 		if r.Method != http.MethodGet {
 			views.Wrap(views.ErrMethodNotAllowed, w)
 			return
 		}
-		idStr := r.URL.Path[len("/meeting/"):]
+		idStr := r.URL.Path[len("/meetings/"):]
 		m, err := svc.FindMeeting(idStr)
 		if err != nil {
 			views.Wrap(err, w)
@@ -58,6 +61,7 @@ func find(svc meeting.Service) http.HandlerFunc {
 
 func findByEmail(svc meeting.Service) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("content-type", "application/json")
 		if r.Method != http.MethodGet {
 			views.Wrap(views.ErrMethodNotAllowed, w)
 			return
@@ -79,6 +83,7 @@ func findByEmail(svc meeting.Service) http.HandlerFunc {
 
 func findInRange(svc meeting.Service) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("content-type", "application/json")
 		if r.Method != http.MethodGet {
 			views.Wrap(views.ErrMethodNotAllowed, w)
 			return
@@ -115,10 +120,10 @@ func findInRange(svc meeting.Service) http.HandlerFunc {
 }
 
 //MountMeetingRoutes to handle routes of meeting
-func MountMeetingRoutes(r *http.ServeMux, svc meeting.Service) {
+func MountMeetingRoutes(r *mux.Router, svc meeting.Service) {
 	//schedule meetings
 	r.Handle("/meetings", create(svc))
 	r.Handle("/meeting/{id}", find(svc))
-	r.Handle("/meetings", findByEmail(svc))
-	r.Handle("/meetings", findInRange(svc))
+	r.Handle("/meetings?participant={emailid}", findByEmail(svc))
+	r.Handle("/meetings?start={starttime}&end={endtime}", findInRange(svc))
 }
