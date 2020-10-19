@@ -1,8 +1,6 @@
 package entities
 
 import (
-	"time"
-
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -10,9 +8,9 @@ import (
 type Meeting struct {
 	ID        primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`
 	Title     string             `bson:"title" json:"title"`
-	StartTime time.Time          `bson:"start_time" json:"start_time"`
-	EndTime   time.Time          `bson:"end_time" json:"end_time"`
-	Created   time.Time          `bson:"created_at" json:"created_at"`
+	StartTime primitive.DateTime `bson:"start_time" json:"start_time"`
+	EndTime   primitive.DateTime `bson:"end_time" json:"end_time"`
+	CreatedAt primitive.DateTime `bson:"created_at" json:"created_at"`
 }
 
 //UserResponse enum
@@ -29,7 +27,7 @@ const (
 
 //JoinRequest join-request for meetings
 type JoinRequest struct {
-	MeetingID     primitive.ObjectID `bson:"meeting_id,omitempty" json:"meeting_id"`
-	PariticpantID primitive.ObjectID `bson:"p_id,omitempty" json:"p_id"`
-	Response      UserResponse       `bson:"response" json:"response"`
+	MeetingID primitive.ObjectID `bson:"meeting_id,omitempty" json:"meeting_id"`
+	EmailID   string             `bson:"p_id,omitempty" json:"p_id"`
+	Response  UserResponse       `bson:"response" json:"response"`
 }
